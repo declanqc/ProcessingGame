@@ -1,7 +1,32 @@
+import ddf.minim.*;
+import ddf.minim.analysis.*;
+import ddf.minim.effects.*;
+import ddf.minim.signals.*;
+import ddf.minim.spi.*;
+import ddf.minim.ugens.*;
+
+Minim minim;
+AudioPlayer player;
+AudioBuffer buffer;
+AudioInput ai;
+
+float lerpedAverage = 0;
+
+float[] lerpedBuffer;
+float z = 0;
+
 void setup()
 {
   background(0);
-  size(500, 500);
+  size(512, 512);
+  minim = new Minim(this);
+  player = minim.loadFile("Trance - 009 Sound System Dreamscape (HD).mp3", width);
+  player.play();
+  ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
+  buffer = player.left;
+
+
+  lerpedBuffer = new float[buffer.size()];
 }
 float x;
 float t1,t2,t3,t4;
@@ -66,10 +91,21 @@ void draw()
    pr=4;
  }
  
- //Baddies
- fill(255,0,0);
- ellipse(250,t1,20,20);
- t1++;
+ //Baddies 
+ float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++) 
+  {
+    sum += abs(buffer.get(i));
+  }
+    float smoothedAverage = 0;
+
+    float average = sum / buffer.size();
+  smoothedAverage = lerp(smoothedAverage, average, 0.1);
+  fill(255);
+  stroke(255);
+  ellipse(250, t1, average * 100, average * 100);
+   t1 += smoothedAverage * 50;
+
  //Collider
  if(t1 > 200 && t1 < 220 && pr ==1)
  {
