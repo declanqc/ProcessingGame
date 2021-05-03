@@ -17,6 +17,7 @@ float z = 0;
 
 void setup()
 {
+
   background(0);
   size(512, 512);
   minim = new Minim(this);
@@ -29,11 +30,15 @@ void setup()
   lerpedBuffer = new float[buffer.size()];
 }
 float x;
-float t1,t2,t3,t4;
 float pr;
-
+float t1 = 0;
+float t4 = 700; // up and down circles
+float t2 = - 200;
+float t3 = 800; // left and right circles
 void draw()
 {
+    println(mouseX, mouseY);
+
   background(0);
   rectMode(CENTER);
   noFill();
@@ -105,9 +110,19 @@ void draw()
   stroke(255);
   ellipse(250, t1, average * 100, average * 100);
    t1 += smoothedAverage * 50;
-
+   
+   
+  ellipse(250, t4, average * 100, average * 100);
+  t4 -= smoothedAverage * 125;
+  
+  ellipse(t2, 250, average * 100, average * 100);
+  t2 += smoothedAverage * 75;
+  
+  ellipse(t3, 250, average * 100, average * 100);
+  t3 -= smoothedAverage * 100;
+  
  //Collider
- if(t1 > 200 && t1 < 220 && pr ==1)
+ if(t1 > 200 && t1 < 220 && pr == 1)
  {
    t1 = 0;
  }
@@ -116,4 +131,34 @@ void draw()
   t1 = 0; 
  }
  
+ 
+ if(t4 > 280 && t4 < 300 && pr == 4)
+ {
+   t4 = 600;
+ }
+if(t4 < 300)
+{
+  t4 = 600;
+}
+
+
+if(t2 > 200 && t2 < 220 && pr == 2)
+{
+  t2 = -100;
+}
+if(t2 > 220)
+{
+  t2 = -100;
+}
+
+
+ if(t3 > 280 && t3 < 300 && pr == 3)
+ {
+   t3 = 600;
+ }
+if(t3 < 300)
+{
+  t3 = 600;
+}
+
 }
