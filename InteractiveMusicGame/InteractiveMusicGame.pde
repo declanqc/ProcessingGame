@@ -28,18 +28,20 @@ void setup()
 
 
   lerpedBuffer = new float[buffer.size()];
+
 }
 float x;
 float pr;
 float t1 = 0;
 float t4 = 700; // up and down circles
 float t2 = - 200;
-float t3 = 800; // left and right circles
+float t3 = 600; // left and right circles
 void draw()
 {
-    println(mouseX, mouseY);
-
   background(0);
+  colorMode(HSB);
+  sideWaves();
+  println(mouseX, mouseY);
   rectMode(CENTER);
   noFill();
   stroke(255);
@@ -68,6 +70,7 @@ void draw()
  //Control functions
   if (x == 1)
  {
+   colorMode(RGB);
    stroke(255,255,0);
    fill(255,255,0);
    triangle(245, 220, 255,220, 250,210); 
@@ -76,6 +79,8 @@ void draw()
  }
  if (x == 2)
  {
+      colorMode(RGB);
+
    stroke(255,255,0);
    fill(255,255,0);
    triangle(220, 245, 220,255, 210,250); 
@@ -83,6 +88,8 @@ void draw()
  }
  if (x == 3)
  {
+      colorMode(RGB);
+
    stroke(255,255,0);
    fill(255,255,0);
    triangle(280, 245, 280,255, 290,250); 
@@ -90,12 +97,15 @@ void draw()
  }
  if (x == 4)
  {
+      colorMode(RGB);
+
    stroke(255,255,0);
    fill(255,255,0);
    triangle(245, 280, 255, 280, 250, 290); 
    pr=4;
  }
  
+
  //Baddies 
  float sum = 0;
   for (int i = 0; i < buffer.size(); i ++) 
@@ -121,6 +131,7 @@ void draw()
   ellipse(t3, 250, average * 100, average * 100);
   t3 -= smoothedAverage * 100;
   
+
  //Collider
  if(t1 > 200 && t1 < 220 && pr == 1)
  {
@@ -161,4 +172,43 @@ if(t3 < 300)
   t3 = 600;
 }
 
+
+
+
 }
+void sideWaves()
+{
+     background(0);
+  float halfH = height / 2;
+  
+  strokeWeight(1);
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    lerpedBuffer[i] = lerp(lerpedBuffer[i], buffer.get(i), 0.1f);
+    float sample = lerpedBuffer[i] * width * 1;    
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    line(i, 0 + sample, i, 0 - sample); 
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    line(i, height + sample, i, height - sample);
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    line(height + sample, i, height - sample, i);
+    stroke(map(i, 0, buffer.size(), 0, 255), 255, 255);
+    line(0 + sample, i, 0 - sample, i);
+
+  }
+  
+  float sum = 0;
+  for (int i = 0; i < buffer.size(); i ++)
+  {
+    sum += abs(buffer.get(i));
+  }
+
+  noStroke();
+  float average = sum / buffer.size();
+  lerpedAverage = lerp(lerpedAverage, average, 0.1f);
+}
+
+float sum = 0;
+float smoothedAverage = 0;
