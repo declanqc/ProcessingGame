@@ -21,7 +21,7 @@ void setup()
   background(0);
   size(512, 512);
   minim = new Minim(this);
-  player = minim.loadFile("Gorgon City - All Four Walls ft. Vaults (Official Video).mp3", width);
+  player = minim.loadFile("Etherwood.mp3", width);
   player.play();
   ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
   buffer = player.left;
@@ -32,11 +32,12 @@ void setup()
 }
 float x;
 float pr;
-float t1 = 0;
-float t4 = 700; // up and down circles
-float t2 = - 200;
-float t3 = 600; // left and right circles
-int lives = 3;
+float t1 = random(-100, 0);
+float t4 = random(-200, 0); // up and down circles
+float t2 = random(-300, 0);
+float t3 = random(-400, 0); // left and right circles
+int lives = 10;
+boolean top, down, left, right;
 void draw()
 {
   background(0);
@@ -51,37 +52,16 @@ void draw()
   stroke(255);
   rect(250, 250, 50, 50);
   //Controls
-  if(keyPressed == true && key == 'w')
-  {
-    x =1 ;
-  
-  }
-  if(keyPressed == true && key == 'a')
-  {
-    x =2 ;
-  
-  }
-  if(keyPressed == true && key == 'd')
-  {
-    x =3 ;
-  
-  }
-  if(keyPressed == true && key == 's')
-  {
-    x =4 ;
-  
-  }
- //Control functions
-  if (x == 1)
+if (top)
  {
    colorMode(RGB);
    stroke(255,255,0);
    fill(255,255,0);
    triangle(245, 220, 255,220, 250,210); 
    pr=1;
-   
+
  }
- if (x == 2)
+ if (right)
  {
       colorMode(RGB);
 
@@ -90,7 +70,7 @@ void draw()
    triangle(220, 245, 220,255, 210,250); 
    pr=2;
  }
- if (x == 3)
+ if (down)
  {
       colorMode(RGB);
 
@@ -99,7 +79,7 @@ void draw()
    triangle(280, 245, 280,255, 290,250); 
    pr=3;
  }
- if (x == 4)
+ if (left)
  {
       colorMode(RGB);
 
@@ -108,6 +88,8 @@ void draw()
    triangle(245, 280, 255, 280, 250, 290); 
    pr=4;
  }
+ //Control functions
+
  
 
  //Baddies 
@@ -116,25 +98,26 @@ void draw()
   {
     sum += abs(buffer.get(i));
   }
+  
     float smoothedAverage = 0;
 
     float average = sum / buffer.size();
   smoothedAverage = lerp(smoothedAverage, average, 0.1);
+  noStroke();
   fill(random(1, 255), random(1, 255), random(1, 255));
   ellipse(250, t1, average * 100, average * 100);
-   t1 += smoothedAverage * 50;
+   t1 += smoothedAverage * random(75, 150);
    
    
   ellipse(250, t4, average * 100, average * 100);
-  t4 -= smoothedAverage * 125;
+  t4 -= smoothedAverage *  random(75, 150);
   
   ellipse(t2, 250, average * 100, average * 100);
-  t2 += smoothedAverage * 75;
+  t2 += smoothedAverage *  random(75, 150);
   
   ellipse(t3, 250, average * 100, average * 100);
-  t3 -= smoothedAverage * 100;
+  t3 -= smoothedAverage *  random(75, 150);
   
-
  //Collider
  if(t1 > 200 && t1 < 220 && pr == 1)
  {
@@ -222,3 +205,50 @@ void sideWaves()
 
 float sum = 0;
 float smoothedAverage = 0;
+
+
+void keyPressed()
+{
+  if (key == 'w' || key == 'W')
+  {
+    top = true;
+  }
+
+  if (key == 'd' || key == 'D')
+  {
+    down = true;
+  }
+
+  if (key == 's' || key == 'S')
+  {
+    left = true;
+  }
+
+  if (key == 'a' || key == 'A')
+  {
+    right = true;
+  }
+}
+
+void keyReleased()
+{
+  if (key == 'w' || key == 'W')
+  {
+    top = false;
+  }
+
+  if (key == 'd' || key == 'D')
+  {
+    down = false;
+  }
+
+  if (key == 's' || key == 'S')
+  {
+    left = false;
+  }
+
+  if (key == 'a'||  key == 'A')
+  {
+    right = false;
+  }
+}
