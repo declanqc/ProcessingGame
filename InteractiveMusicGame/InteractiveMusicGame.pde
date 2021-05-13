@@ -36,7 +36,7 @@ float t1 = random(-100, 0);
 float t4 = random(-200, 0); // up and down circles
 float t2 = random(-300, 0);
 float t3 = random(-400, 0); // left and right circles
-int lives = 10;
+int lives = 12;
 boolean top, down, left, right;
 void draw()
 {
@@ -105,17 +105,17 @@ if (top)
   noStroke();
   fill(random(1, 255), random(1, 255), random(1, 255));
   ellipse(250, t1, average * 100, average * 100);
-   t1 += smoothedAverage * random(75, 150);
+   t1 += smoothedAverage * random(25, 100);
    
    
   ellipse(250, t4, average * 100, average * 100);
-  t4 -= smoothedAverage *  random(75, 150);
+  t4 -= smoothedAverage *  random(75, 100);
   
   ellipse(t2, 250, average * 100, average * 100);
-  t2 += smoothedAverage *  random(75, 150);
+  t2 += smoothedAverage *  random(50, 100);
   
   ellipse(t3, 250, average * 100, average * 100);
-  t3 -= smoothedAverage *  random(75, 150);
+  t3 -= smoothedAverage *  random(100, 100);
   
  //Collider
  if(t1 > 200 && t1 < 220 && pr == 1)
