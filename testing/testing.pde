@@ -41,6 +41,8 @@ boolean push;
 //UI
 int Score = 0;
 
+boolean heart1;
+
 void setup()
 {
   size(500,500);
@@ -72,6 +74,8 @@ void setup()
     pillary1[i] = random(-20,0);
     pillary2[i] = random(500,600);
   }
+  
+  heart1 = true;
 }
 
 void draw()
@@ -83,6 +87,7 @@ void draw()
   playermovement();
   UI();
   healthbar();
+  end();
 }
 
 void playerdraw()
@@ -171,13 +176,15 @@ void pillardraw()
     pillarx1[i] = 500;
     pillary1[i] = random(-20,0);
     Score++;  
+    heart1 = false;
   }  
     
     if (dist(location.x/90, location.y, pillarx2[i], pillary2[i]) < (150))
   {
     pillarx2[i] = 500;
     pillary2[i] = random(500,700);
-    Score++;  
+    Score++; 
+    heart1 = false;
   }  
   }
   print (location.y);
@@ -191,6 +198,8 @@ void UI()
 
 void healthbar()
 {
+  if (heart1)
+  {
   smooth();
   noStroke();
   fill(255,0,0);
@@ -200,5 +209,15 @@ void healthbar()
   vertex(50, 15);
   bezierVertex(50, -5, 10, 5, 50, 40);
   endShape();
+  }
+}
+
+void end()
+{
+  if (heart1 == false)
+  {
+    Pspeed = 0;
+    text("Score"+ ' ' + '=' + ' ' + Score, width/2, height/2);
+  }
 }
    
