@@ -21,7 +21,7 @@ void setup()
   background(0);
   size(512, 512);
   minim = new Minim(this);
-  player = minim.loadFile("Trance - 009 Sound System Dreamscape (HD).mp3", width);
+  player = minim.loadFile("Gorgon City - All Four Walls ft. Vaults (Official Video).mp3", width);
   player.play();
   ai = minim.getLineIn(Minim.MONO, width, 44100, 16);
   buffer = player.left;
@@ -36,12 +36,16 @@ float t1 = 0;
 float t4 = 700; // up and down circles
 float t2 = - 200;
 float t3 = 600; // left and right circles
+int lives = 3;
 void draw()
 {
   background(0);
   colorMode(HSB);
   sideWaves();
   println(mouseX, mouseY);
+  fill(255);
+  text("lives:", 30, 60);
+  text(lives, 80, 60);
   rectMode(CENTER);
   noFill();
   stroke(255);
@@ -116,8 +120,7 @@ void draw()
 
     float average = sum / buffer.size();
   smoothedAverage = lerp(smoothedAverage, average, 0.1);
-  fill(255);
-  stroke(255);
+  fill(random(1, 255), random(1, 255), random(1, 255));
   ellipse(250, t1, average * 100, average * 100);
    t1 += smoothedAverage * 50;
    
@@ -140,6 +143,7 @@ void draw()
  if( t1 > 220)
  {
   t1 = 0; 
+  lives --;
  }
  
  
@@ -150,6 +154,8 @@ void draw()
 if(t4 < 300)
 {
   t4 = 600;
+  lives --;
+
 }
 
 
@@ -160,6 +166,8 @@ if(t2 > 200 && t2 < 220 && pr == 2)
 if(t2 > 220)
 {
   t2 = -100;
+  lives --;
+
 }
 
 
@@ -170,6 +178,8 @@ if(t2 > 220)
 if(t3 < 300)
 {
   t3 = 600;
+  lives --;
+
 }
 
 
