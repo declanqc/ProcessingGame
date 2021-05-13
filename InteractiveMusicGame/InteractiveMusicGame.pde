@@ -43,7 +43,6 @@ void draw()
   background(0);
   colorMode(HSB);
   sideWaves();
-  println(mouseX, mouseY);
   fill(255);
   text("lives:", 30, 60);
   text(lives, 80, 60);
@@ -172,7 +171,6 @@ if(t3 < 300)
 void sideWaves()
 {
      background(0);
-  float halfH = height / 2;
   
   strokeWeight(1);
   for (int i = 0; i < buffer.size(); i ++)
