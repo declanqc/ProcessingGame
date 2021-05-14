@@ -26,8 +26,8 @@ void draw()
 {
   background(0);
   textSize(30);
-  text("EDA",210,200);
-  text("Press any key to start", 140,320);
+  text("EDA",220,200);
+  text("Press any key to start", 100,320);
   if(keyPressed == true )
   {
 G1 = 1;
@@ -47,7 +47,7 @@ float t1 = random(-100, 0);
 float t4 = random(-200, 0); // up and down circles
 float t2 = random(-300, 0);
 float t3 = random(-400, 0); // left and right circles
-int lives = 12;
+int lives = 3;
 boolean top, down, left, right;
 float G1;
 
@@ -98,6 +98,7 @@ player.play();
   noFill();
   stroke(255);
   rect(250, 250, 50, 50);
+
   //Controls
 if (top)
  {
