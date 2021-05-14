@@ -31,12 +31,17 @@ void draw()
   if(keyPressed == true )
   {
 G1 = 1;
+
   }
-  if(G1 == 1)
+  if (lives == 0)
+  {
+    end();
+  }
+  if(G1 == 1 && lives > 0)
   {
    Game1(); 
   }
-  
+ 
 }
 float lerpedAverage = 0;
 float[] lerpedBuffer;
@@ -297,6 +302,19 @@ void keyReleased()
   if (key == 'a'||  key == 'A')
   {
     right = false;
+  }
+}
+void end()
+{
+  fill(255);
+  player.pause();
+  background(0);
+ text("You lost Continue?", 120, 200);
+  text("Press any key for 12 lives", 80, 230);
+   if(keyPressed == true )
+  {
+lives = 12;
+
   }
 }
   
