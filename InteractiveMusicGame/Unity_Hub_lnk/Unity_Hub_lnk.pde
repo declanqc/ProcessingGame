@@ -98,7 +98,7 @@ player.play();
   sideWaves();
   fill(255);
   text("lives:", 30, 60);
-  text(lives, 80, 60);
+  text(lives, 110, 60);
   rectMode(CENTER);
   noFill();
   stroke(255);
