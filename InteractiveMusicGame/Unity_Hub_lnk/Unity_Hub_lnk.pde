@@ -52,7 +52,7 @@ float t1 = random(-100, 0);
 float t4 = random(-200, 0); // up and down circles
 float t2 = random(-300, 0);
 float t3 = random(-400, 0); // left and right circles
-int lives = 3;
+int lives = 12;
 boolean top, down, left, right;
 float G1;
 
